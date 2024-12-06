@@ -1,0 +1,37 @@
+.text-center {
+
+    text-align: center;
+    
+}
+
+.item-center {
+
+    align-items: center
+    
+}
+
+.flex {
+
+    display: flex;
+
+}
+
+.flex-col {
+
+    flex-direction: column;
+    
+
+}
+
+.element-to-move-front {
+    z-index: 1;
+    /* set higher z-index value */
+    position: relative;
+    /* position must be set for z-index to work */
+}
+
+.mx-auto {
+
+    margin: auto;
+}
+

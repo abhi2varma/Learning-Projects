@@ -1,0 +1,67 @@
+html,
+body {
+
+    background-color: salmon;
+    touch-action: none;
+}
+
+.button {
+
+    background-color: rgb(54, 53, 53);
+    border: none;
+    color: white;
+    padding: 20px;
+    margin: 2px 0px;
+    border-radius: 9PX;
+    border: 2px solid black;
+    cursor: pointer;
+    width: 75px;
+    height: 75px;
+    border-radius: 1000%;
+    font-size: 25px
+
+}
+
+.row {
+
+margin: 8px 0;
+
+}
+
+.row input {
+    font-size: 30px;
+    /*color: white;*/ 
+    width: 275px;
+    height: 50px;
+    border: 2px solid black;
+    border-radius: 5px;
+    /* visibility: collapse */ 
+
+}
+
+
+.container{
+ 
+    width: 320px;
+    background: rgb(0, 0, 0);
+    border: 1px solid black;
+    outline: 1px solid rgb(153, 102, 102);
+
+}
+
+.input
+{
+background-color: white;
+color:black ;
+}
+
+.bg-img {
+
+    margin: 30px;
+    background: rgb(116, 116, 103);
+    border: 1px solid black;
+    outline: 1px solid rgb(153, 102, 102);
+    outline-offset: 15px;
+
+}
+

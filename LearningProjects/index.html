@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  initial-scale=1.0, user-scalable=yes content="width=device-width, initial-scale=1.0">
+    <title>Stylish Calculator</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Body */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        /* Calculator Container */
+        .calculator {
+            background-color: #333;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Display */
+        .display {
+            background-color: #222;
+            color: white;
+            font-size: 3rem;
+            text-align: right;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            width: 280px;
+            height: 80px;
+        }
+
+        /* Buttons Container */
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        /* Button Style */
+        .button {
+            background-color: #f0a500;
+            color: white;
+            font-size: 2rem;
+            border: none;
+            border-radius: 10px;
+            padding: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+
+        .button:hover {
+            background-color: #f39c12;
+            transform: scale(1.1);
+        }
+
+        .button:active {
+            background-color: #e67e22;
+            transform: scale(1.05);
+        }
+
+        .button.clear {
+            background-color: #e74c3c;
+        }
+
+        .button.clear:hover {
+            background-color: #c0392b;
+        }
+
+        .button.operation {
+            background-color: #3498db;
+        }
+
+        .button.operation:hover {
+            background-color: #2980b9;
+        }
+
+        .button.equals {
+            background-color: #2ecc71;
+            grid-column: span 2;
+        }
+
+        .button.zero {
+            grid-column: span 2;
+        }
+
+        /* Responsive design */
+        @media (max-width: 500px) {
+            .calculator {
+                width: 300px;
+                padding: 15px;
+            }
+            
+            .display {
+                font-size: 2.5rem;
+            }
+            
+            .button {
+                font-size: 1.6rem;
+                padding: 15px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <!-- Display Area -->
+    <div class="display" id="display">0</div>
+
+    <!-- Button Grid -->
+    <div class="buttons">
+        <button class="button clear" id="clear">C</button>
+        <button class="button operation" id="divide">/</button>
+        <button class="button operation" id="multiply">*</button>
+        <button class="button operation" id="subtract">-</button>
+
+        <button class="button">7</button>
+        <button class="button">8</button>
+        <button class="button">9</button>
+        <button class="button operation" id="add">+</button>
+
+        <button class="button">4</button>
+        <button class="button">5</button>
+        <button class="button">6</button>
+        <button class="button equals" id="equals">=</button>
+
+        <button class="button">1</button>
+        <button class="button">2</button>
+        <button class="button">3</button>
+        <button class="button zero">0</button>
+
+        <button class="button">.</button>
+    </div>
+</div>
+
+<script>
+    let display = document.getElementById('display');
+    let currentInput = '0';
+    let operator = null;
+    let firstOperand = null;
+
+    // Update display
+    function updateDisplay(value) {
+        display.textContent = value;
+    }
+
+    // Handle button clicks
+    function handleButtonClick(value) {
+        if (value >= '0' && value <= '9') {
+            if (currentInput === '0') {
+                currentInput = value;
+            } else {
+                currentInput += value;
+            }
+            updateDisplay(currentInput);
+        } else if (value === '.') {
+            if (!currentInput.includes('.')) {
+                currentInput += '.';
+                updateDisplay(currentInput);
+            }
+        } else if (value === 'C') {
+            currentInput = '0';
+            operator = null;
+            firstOperand = null;
+            updateDisplay(currentInput);
+        } else if (value === '=') {
+            if (operator && firstOperand !== null) {
+                let result;
+                switch (operator) {
+                    case '+':
+                        result = firstOperand + parseFloat(currentInput);
+                        break;
+                    case '-':
+                        result = firstOperand - parseFloat(currentInput);
+                        break;
+                    case '*':
+                        result = firstOperand * parseFloat(currentInput);
+                        break;
+                    case '/':
+                        result = firstOperand / parseFloat(currentInput);
+                        break;
+                    default:
+                        break;
+                }
+                currentInput = result.toString();
+                operator = null;
+                firstOperand = null;
+                updateDisplay(currentInput);
+            }
+        } else {
+            if (operator && firstOperand !== null) {
+                return;
+            }
+            operator = value;
+            firstOperand = parseFloat(currentInput);
+            currentInput = '0';
+        }
+    }
+
+    // Add event listeners to buttons
+    document.querySelectorAll('.button').forEach(button => {
+        button.addEventListener('click', function () {
+            handleButtonClick(this.textContent);
+        });
+    });
+
+</script>
+
+</body>
+</html>
